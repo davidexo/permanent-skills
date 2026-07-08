@@ -1,0 +1,9 @@
+{
+  "name": "dummy-names",
+  "version": "1.0.0",
+  "description": "Fixed roster of 13 placeholder people for UI mockups and sample data.",
+  "author": {
+    "name": "David Bielenberg",
+    "email": "david@permanent.is"
+  }
+}

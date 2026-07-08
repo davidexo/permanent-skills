@@ -1,0 +1,17 @@
+{
+  "name": "permanent-skills",
+  "owner": {
+    "name": "David Bielenberg",
+    "email": "david@permanent.is"
+  },
+  "metadata": {
+    "description": "PERMANENT's shared Claude Code skills."
+  },
+  "plugins": [
+    {
+      "name": "dummy-names",
+      "source": "./dummy-names",
+      "description": "Fixed roster of 13 placeholder people for UI mockups and sample data."
+    }
+  ]
+}
