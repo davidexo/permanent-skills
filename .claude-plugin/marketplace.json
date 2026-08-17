@@ -12,6 +12,11 @@
       "name": "dummy-names",
       "source": "./dummy-names",
       "description": "Fixed roster of 13 placeholder people for UI mockups and sample data."
+    },
+    {
+      "name": "default-design",
+      "source": "./default-design",
+      "description": "House method for designing Default in Figma."
     }
   ]
 }

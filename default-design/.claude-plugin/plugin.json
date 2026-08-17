@@ -1,0 +1,6 @@
+{
+  "name": "default-design",
+  "description": "The house method for designing Default (Default Infra) surfaces in Figma — system files, token architecture, standing house rules and Plugin API gotchas.",
+  "version": "0.1.0",
+  "author": { "name": "Albert Zimtea" }
+}
