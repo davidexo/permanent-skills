@@ -1,7 +1,8 @@
 # Default — files, tokens and keys
 
-> Point-in-time as of 2026-08-10. Keys and publish state change when the library is republished.
-> Verify with a real `importComponentByKeyAsync` before trusting any key below.
+> Point-in-time as of 2026-08-10, re-verified 2026-08-17. Keys and publish state change when the
+> library is republished. Verify with a real `importComponentByKeyAsync` before trusting any key
+> below — one key here went stale within a week of first being written down.
 
 ## The two files
 
@@ -13,9 +14,16 @@
 They are **separate files**, so the product file can only use system components if the system
 file is *published as a team library and enabled in the product file*.
 
-**System file pages:** vision `0:1`, Icons `1:14228`, Components `1:20036`, Badge `1:14084`,
-Boxed Icons `33:6161`, Button `1:12493`, Graphs `1:14083`, Sidebar `1:13346`, Table `1:20037`,
-Tabs Header `1:13987`. ~2,500+ local components.
+**System file pages** (verified 2026-08-17): vision `0:1`, Icons `1:14228`, then the indented
+component pages — Avatar `33:10575`, Badge `1:14084`, Badge Number `33:10627`, Button `1:12493`,
+Checkbox `33:12541`, Dropdown `33:10479`, Graphs `1:14083`, Hotkey `33:11279`, Input `33:11450`,
+Logos & Boxed Icons `33:6161`, Sidebar `1:13346`, Separator `33:11406`, Slot `71:8805`,
+Switch `33:10795`, Table `1:20037`, Tabs Header `1:13987`, Tabs / Segmented `33:11339`.
+~2,500+ local components.
+
+A `Components` page (`1:20036`) and a standalone `Boxed Icons` page no longer exist under those
+names. A `Slot` page does exist, which does not contradict "the API cannot create native SLOTs"
+below — those were made in the UI — but verify before relying on either.
 
 **Product file:** the screens live on **Key Surfaces** (`564:87779`) as prototypes; small
 interactions are done in code. Product-local components live on the **Local Components** pages —
@@ -43,7 +51,7 @@ Two other subscribed collections have the **same names and near-identical values
 
 | Collection | 3. Mode key | verdict |
 |---|---|---|
-| **Default Infra System** | `3ff4b16ee4b7beee780eb9a56e995400cfaa222a` | ✅ bind here |
+| **Default Infra System** | `3ff4b16ee4b7beee780eb9a56e995400cfaa222a` | ✅ bind here — verified 08-17, resolves 166 variables (`base/*`, `custom/*`, `alpha/*`) |
 | Tokens | `2110fc0c3f77f4accc0747a8f01a3db0c6e6f2de` | ⚠️ near-duplicate, do not bind new work |
 | shadcn_ui kit | `e9abae76…` | 🛑 old, purge on sight |
 
@@ -74,8 +82,8 @@ The system library is `Default Infra System` (`lk-a118…`).
 
 | Component | Key |
 |---|---|
-| Button (set) | `cf257ecf4f73702c2b43ea23b4aa5eeb05cfa451` |
-| Button Secondary / icon sm (28×28) | `7ad0c665435cb84d2b86cb0c89cd56b100f5696d` |
+| Button (set) | `cf257ecf4f73702c2b43ea23b4aa5eeb05cfa451` ✅ verified 08-17 |
+| Button Secondary / icon sm (28×28) | `7ad0c665435cb84d2b86cb0c89cd56b100f5696d` ✅ verified 08-17 |
 | Button Ghost / icon sm | `f4fde555…` |
 | Input | `5c0a774f…` |
 | Badge | `04402bb1…` |
@@ -83,11 +91,11 @@ The system library is `Default Infra System` (`lk-a118…`).
 | Boxed-Icon | `fcbfd95a…` |
 | Avatar | `13edf8c8…` (set `33:10583`, has a `Person` axis for roster photos) |
 | Separator Vertical | `750d1439…` |
-| Table / Head | `0d4a747e2232ea23a908a385e1e5b233affdb289` (set `650:20721`) |
-| Graph (set, since split into `Graph/Type` standalones) | `53272089433cbd51a98e988b688e3ac763e487f6` |
-| Graph / KPI | `b3a2b898ab22333ccb9b0feff094f30b4583fa43` |
-| Graph / Bar | `406fa2a2688e5f981ead0a1d9b1af62b87a783a4` |
-| DropdownMenu Trigger | `d24bfca1d92e1308b0609cfcad7dda429ef5a634` |
+| Table / Head | `0d4a747e2232ea23a908a385e1e5b233affdb289` (set `650:20721`) ✅ verified 08-17 |
+| ~~Graph (set)~~ | ~~`53272089433cbd51a98e988b688e3ac763e487f6`~~ 🛑 **DEAD as of 08-17** — the split into `Graph/Type` standalones has completed; the set key returns "not found". Import the individual variants below. |
+| Graph / KPI | `b3a2b898ab22333ccb9b0feff094f30b4583fa43` ✅ verified 08-17, imports as `Kind=KPI` |
+| Graph / Bar | `406fa2a2688e5f981ead0a1d9b1af62b87a783a4` ✅ verified 08-17, imports as `Kind=Bar` |
+| DropdownMenu Trigger | `d24bfca1d92e1308b0609cfcad7dda429ef5a634` ✅ verified 08-17 |
 
 **Button property names** (they are inconsistent — copy exactly):
 `Button Text#37:10`, `Show Left Icon#37:11`, `Left Icon#46:0`, `show Icon Right#267:0`
