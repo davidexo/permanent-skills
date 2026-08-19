@@ -1,0 +1,9 @@
+{
+  "name": "pr-slack-announce",
+  "version": "1.0.0",
+  "description": "Draft short, designer's-lens Slack announcements for pull requests. Draft only, never auto-send.",
+  "author": {
+    "name": "David Bielenberg",
+    "email": "david@permanent.is"
+  }
+}

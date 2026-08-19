@@ -17,6 +17,11 @@
       "name": "default-design",
       "source": "./default-design",
       "description": "House method for designing Default in Figma."
+    },
+    {
+      "name": "pr-slack-announce",
+      "source": "./pr-slack-announce",
+      "description": "Designer's-lens Slack announcement drafts for pull requests."
     }
   ]
 }
