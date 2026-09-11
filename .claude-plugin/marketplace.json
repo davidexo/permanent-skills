@@ -22,6 +22,11 @@
       "name": "pr-slack-announce",
       "source": "./pr-slack-announce",
       "description": "Designer's-lens Slack announcement drafts for pull requests."
+    },
+    {
+      "name": "permanent-ui",
+      "source": "./permanent-ui",
+      "description": "Contribute to and take from PERMANENT ui, the internal component library. The contract for the wall."
     }
   ]
 }
