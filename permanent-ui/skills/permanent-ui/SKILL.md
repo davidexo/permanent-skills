@@ -134,7 +134,10 @@ Write a short PR body (what it is, where it came from, the controls, what was st
 references added) to a file, then:
 
 ```bash
-node <this skill's folder>/scripts/contribute.mjs \
+# the push script lives in the library; fetch it fresh each time (it is small)
+gh api repos/davidexo/permanent-ui/contents/skills/permanent-ui/skills/permanent-ui/scripts/contribute.mjs \
+  --jq .content | base64 -d > "$STAGE/../contribute.mjs"
+node "$STAGE/../contribute.mjs" \
   --dir "$STAGE" --branch add/<slug> --title "Add <name>" --body-file "$STAGE/../pr.md"
 ```
 
