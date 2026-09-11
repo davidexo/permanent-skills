@@ -5,7 +5,7 @@ description: The contract for PERMANENT ui, our internal component library (Reac
 
 # PERMANENT ui
 
-Internal component library at `https://permanent-ui.vercel.app`, source in `github.com/davidexo/permanent-ui`.
+Internal component library at `https://ui.permanent.is`, source in `github.com/davidexo/permanent-ui`.
 Every component on the wall is a folder under `registry/<slug>/` with a `meta.json`, a self-contained
 React component styled only with the shared theme tokens, optional knobs the wall renders as controls,
 and the GitHub handle of whoever made it. This skill is the one way things get in and out.
@@ -160,8 +160,8 @@ user can try the knobs, and report the PR link. Do not ask the user to merge; a 
 Every component is a shadcn-compatible registry item:
 
 ```bash
-npx shadcn@latest add https://permanent-ui.vercel.app/r/<slug>.json            # unified
-npx shadcn@latest add https://permanent-ui.vercel.app/r/<slug>-original.json   # as it shipped, when it exists
+npx shadcn@latest add https://ui.permanent.is/r/<slug>.json            # unified
+npx shadcn@latest add https://ui.permanent.is/r/<slug>-original.json   # as it shipped, when it exists
 ```
 
 Without shadcn, fetch the JSON and write each `files[].content` to `files[].path`. The unified item
@@ -170,7 +170,7 @@ the project's own theme so the component takes the project's look. The component
 variables, so restyling is a matter of redefining them, then editing the module CSS if a detail needs
 to change. Install `dependencies` from the item (usually `motion`).
 
-`https://permanent-ui.vercel.app/r/index.json` lists everything with its meta, for searching without the UI.
+`https://ui.permanent.is/r/index.json` lists everything with its meta, for searching without the UI.
 
 ## Bookmark a reference
 
