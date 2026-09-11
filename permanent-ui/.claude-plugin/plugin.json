@@ -1,0 +1,9 @@
+{
+  "name": "permanent-ui",
+  "version": "1.0.0",
+  "description": "Contribute components and reference bookmarks to PERMANENT ui, the internal component library, and take components from it into a project.",
+  "author": {
+    "name": "David Bielenberg",
+    "email": "david@permanent.is"
+  }
+}
