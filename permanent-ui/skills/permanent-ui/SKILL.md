@@ -19,16 +19,27 @@ You are in some project (a client codebase, a prototype) and the user points at 
 Get it onto the wall as two versions: the **unified** one that follows the library theme, and the
 **original** one exactly as it shipped, so nothing is lost.
 
-### 1. Get a library checkout
+### 1. Stage, do not clone
+
+Nothing is checked out. You write the new files into a staging folder that mirrors the repo
+layout, and a bundled script pushes them to a branch through the GitHub API and opens the PR.
+CI validates the contract and Vercel posts a preview of the wall on the PR.
 
 ```bash
-test -d ~/permanent-ui || gh repo clone davidexo/permanent-ui ~/permanent-ui
-cd ~/permanent-ui && git checkout main && git pull --ff-only && pnpm install
-git checkout -b add/<slug>
+STAGE=$(mktemp -d)/permanent-ui && mkdir -p "$STAGE/registry/<slug>"
+gh auth status   # must be signed in; the PR is opened as this GitHub user
 ```
 
-If the user has the library checked out elsewhere, use that. Never write into the user's project;
-the project stays untouched and keeps using its own copy of the component.
+Read the current shared files from GitHub before you touch them:
+
+```bash
+gh api repos/davidexo/permanent-ui/contents/registry/authors.ts --jq .content | base64 -d
+gh api repos/davidexo/permanent-ui/contents/registry/references.json --jq .content | base64 -d
+gh api repos/davidexo/permanent-ui/contents/registry --jq '.[].name'   # existing slugs
+```
+
+The contract and the token list are bundled in `references/contract.md`. Only clone the repo
+(`gh repo clone davidexo/permanent-ui`) if the user wants to iterate against a live local wall.
 
 ### 2. Read the source, all of it
 
@@ -117,28 +128,29 @@ If the session used external reference links for this component (a site you stud
 demo you matched, a shader you borrowed an idea from), add each to `registry/references.json` unless the
 URL is already there. See **Bookmark** below. Say which you added.
 
-### 8. Verify
+### 8. Push and open the PR
+
+Write a short PR body (what it is, where it came from, the controls, what was stripped,
+references added) to a file, then:
 
 ```bash
-pnpm registry && pnpm typecheck && pnpm lint && pnpm build
+node <this skill's folder>/scripts/contribute.mjs \
+  --dir "$STAGE" --branch add/<slug> --title "Add <name>" --body-file "$STAGE/../pr.md"
 ```
 
-Fix everything the registry script complains about; it validates the contract. Then run
-`pnpm dev`, open `http://localhost:3000/?c=<slug>`, drag every control through its range, flip the
-stage theme, and check the tile on the wall. If you have browser tools, do it yourself; otherwise ask
-the user to look and wait.
+The script creates the branch from main, commits every staged file, and opens the PR under the
+user's GitHub identity. That is how credit works here.
 
-### 9. Open the PR
+### 9. Watch the checks
 
 ```bash
-git add registry/<slug> registry/authors.ts registry/references.json
-git commit -m "Add <name>"
-git push -u origin add/<slug>
-gh pr create --title "Add <name>" --body "<what it is, where it came from, the controls, what was stripped, references added>"
+gh pr checks <pr-url> --repo davidexo/permanent-ui --watch
 ```
 
-Report the PR link and the deep link `https://permanent-ui.vercel.app/?c=<slug>` the wall will have once merged.
-The PR author is the GitHub identity; that is how credit works here.
+CI runs the registry validator, typecheck, lint and build. If `check` fails, read the log
+(`gh run view --log-failed`), fix the file in the staging dir, rerun the script (it updates the
+branch in place). Vercel comments a preview URL on the PR; report it with `?c=<slug>` appended so the
+user can try the knobs, and report the PR link. Do not ask the user to merge; a reviewer does.
 
 ## Take a component into a project
 
@@ -176,8 +188,11 @@ Append an object:
 Skip a URL that is already present (compare hostnames plus path, ignore trailing slashes). Skip
 documentation for libraries already in the stack (React, Next, motion docs) and anything behind a login.
 Keep design references, component galleries, shader and motion libraries, typography sources, and any
-page the user explicitly said was useful. When bookmarking on its own, open a PR titled
-"Bookmark <title>"; when part of a contribution, ship it in the same PR.
+page the user explicitly said was useful.
+
+Read the current file from GitHub, append, stage it as `registry/references.json`, and push with
+the same script: `--branch bookmark/<host> --title "Bookmark <title>"`. When part of a contribution,
+stage it alongside the component so it ships in the same PR.
 
 ## Things you never do
 
@@ -185,6 +200,7 @@ page the user explicitly said was useful. When bookmarking on its own, open a PR
 - Paste project code into the unified version. It is a rewrite against the contract.
 - Add dependencies beyond `react` and `motion`.
 - Put hex colours, Tailwind classes or icon packages in a unified component.
-- Push to `main`. Everything is a PR.
+- Push to `main`. Everything is a PR, opened by the script.
+- Clone the library or run its dev server unless the user asks to iterate locally.
 - Edit `registry/types.ts`, `registry/_theme/tokens.css`, `scripts/`, or `src/` as part of a
   contribution. Those change through their own PRs.

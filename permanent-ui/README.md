@@ -5,6 +5,12 @@ Source of truth lives in the library repo at `skills/permanent-ui/`; it is mirro
 `davidexo/permanent-skills` marketplace so it installs with:
 
 ```
+npx skills add davidexo/permanent-ui --skill permanent-ui -g -y
+```
+
+or, as a Claude Code plugin:
+
+```
 /plugin marketplace add davidexo/permanent-skills
 /plugin install permanent-ui@permanent-skills
 ```
