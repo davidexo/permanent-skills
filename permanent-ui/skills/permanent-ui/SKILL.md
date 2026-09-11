@@ -142,18 +142,21 @@ node "$STAGE/../contribute.mjs" \
 ```
 
 The script creates the branch from main, commits every staged file, and opens the PR under the
-user's GitHub identity. That is how credit works here.
+user's GitHub identity. That is how credit works here. Then:
 
-### 9. Watch the checks
+- **User has push access to the library** (the team): the script waits for the checks and
+  squash-merges the PR itself. Main redeploys; the component is on the wall in a minute or two.
+  Report the wall link `https://ui.permanent.is/?c=<slug>`.
+- **No push access**: the PR stays open for a maintainer. Report the PR link and the Vercel
+  preview URL from the PR with `?c=<slug>` appended so the user can try the knobs.
+- Pass `--no-merge` when the user asks for a review first.
 
-```bash
-gh pr checks <pr-url> --repo davidexo/permanent-ui --watch
-```
+### 9. If a check fails
 
-CI runs the registry validator, typecheck, lint and build. If `check` fails, read the log
-(`gh run view --log-failed`), fix the file in the staging dir, rerun the script (it updates the
-branch in place). Vercel comments a preview URL on the PR; report it with `?c=<slug>` appended so the
-user can try the knobs, and report the PR link. Do not ask the user to merge; a reviewer does.
+CI runs the registry validator, typecheck, lint and build. Read the log
+(`gh run list --repo davidexo/permanent-ui --branch add/<slug>` then `gh run view <id> --log-failed`),
+fix the file in the staging dir, and rerun the script: it updates the branch in place and the checks
+run again. Never merge around a red check.
 
 ## Take a component into a project
 
