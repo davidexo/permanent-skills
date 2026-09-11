@@ -22,12 +22,13 @@ Get it onto the wall as two versions: the **unified** one that follows the libra
 ### 1. Get a library checkout
 
 ```bash
-test -d ~/permanent-ui || git clone git@github.com:davidexo/permanent-ui.git ~/permanent-ui
+test -d ~/permanent-ui || gh repo clone davidexo/permanent-ui ~/permanent-ui
 cd ~/permanent-ui && git checkout main && git pull --ff-only && pnpm install
 git checkout -b add/<slug>
 ```
 
-If the user has the library checked out elsewhere, use that. Never write into the user's project.
+If the user has the library checked out elsewhere, use that. Never write into the user's project;
+the project stays untouched and keeps using its own copy of the component.
 
 ### 2. Read the source, all of it
 
@@ -64,6 +65,10 @@ Create `registry/<slug>/<Name>.tsx` and `registry/<slug>/<Name>.module.css`. Rew
 - Every tuning knob becomes an optional prop with a default that matches how it shipped.
   Aim for 2 to 4 controls that visibly change something. Physics and timing make good ranges;
   variants make good selects; on/off features make good booleans.
+- Two conventions the wall already uses, add them when they make sense: `fill` as a select
+  `["light", "dark"]` that sets `data-theme={fill === "dark" ? "dark" : undefined}` on the root
+  so the component previews on the other theme, and `stroke` as a boolean that draws a hairline
+  ring in `var(--rule)`.
 - With no props it must render a complete demo at natural size, 200 to 420px wide.
 - Keep the accessibility that was there and add what was missing: real buttons, roles, focus ring
   via `outline` on `var(--pick)`.
