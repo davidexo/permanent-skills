@@ -58,7 +58,7 @@ project would have `registry/liquid-toggle/original/LiquidToggle.tsx` (or whatev
 Tailwind and all) plus `original/README.md`:
 
 ```
-From: Sazabi feed, src/components/feed/Toggle.tsx, 2026-08-30
-Stripped: feed theme classes, analytics call on toggle, i18n label lookup
-Needs: tailwind v4 with the feed preset, framer-motion 11
+From: <project name>, src/components/feed/Toggle.tsx, 2026-08-30
+Stripped: project theme classes, analytics call on toggle, i18n label lookup
+Needs: tailwind v4 with the project preset, framer-motion 11
 ```
